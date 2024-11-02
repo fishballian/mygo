@@ -30,8 +30,24 @@ func (h *Heap) Pop() interface{} {
 */
 
 func (h *Heap) Push(x int) {
-	t := h.Len()
 	h.data = append(h.data, x)
+	h.filterUp(h.Len() - 1)
+}
+
+func (h *Heap) Top() int {
+	return h.data[0]
+}
+
+func (h *Heap) Pop() int {
+	l := h.Len()
+	h.Swap(0, l-1)
+	v := h.data[l-1]
+	h.data = h.data[:l-1]
+	h.filterDown(0)
+	return v
+}
+
+func (h *Heap) filterUp(t int) {
 	for t > 0 {
 		p := (t - 1) / 2
 		if h.Less(t, p) {
@@ -43,17 +59,8 @@ func (h *Heap) Push(x int) {
 	}
 }
 
-func (h *Heap) Top() int {
-	return h.data[0]
-}
-
-func (h *Heap) Pop() int {
-	v := h.data[0]
+func (h *Heap) filterDown(t int) {
 	l := h.Len()
-	h.Swap(0, l-1)
-	h.data = h.data[:l-1]
-	l--
-	t := 0
 	left := 1
 	for left < l {
 		if left+1 < l && h.Less(left+1, left) {
@@ -67,5 +74,4 @@ func (h *Heap) Pop() int {
 			break
 		}
 	}
-	return v
 }
