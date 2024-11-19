@@ -10,7 +10,7 @@ func Test_treap(t *testing.T) {
 	for i := 0; i < 10000; i++ {
 		tree := &Treap{}
 		m := make(map[int]bool)
-		cmd := [][]int{}
+		var cmd [][]int
 		for j := 0; j < 20; j++ {
 			v := rand.Int() % 10
 			if rand.Int()%2 == 0 {
@@ -34,10 +34,10 @@ func Test_treap(t *testing.T) {
 			}
 			c2, f2 := math.MaxInt, math.MinInt
 			if n := tree.Ceil(v2); n != nil {
-				c2 = n.val
+				c2 = n.Val
 			}
 			if n := tree.Floor(v2); n != nil {
-				f2 = n.val
+				f2 = n.Val
 			}
 			if c != c2 {
 				t.Fatal("ceil", c, c2, cmd, v2)
@@ -46,6 +46,5 @@ func Test_treap(t *testing.T) {
 				t.Fatal("floor", f, f2, cmd, v2)
 			}
 		}
-
 	}
 }

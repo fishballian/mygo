@@ -4,14 +4,14 @@ import "math/rand"
 
 type Node struct {
 	ch       [2]*Node
-	val      int
+	Val      int
 	priority int
 }
 
 func (o *Node) cmp(v int) int {
-	if o.val > v {
+	if o.Val > v {
 		return 0
-	} else if o.val < v {
+	} else if o.Val < v {
 		return 1
 	}
 	return -1
@@ -34,7 +34,7 @@ func (t *Treap) Put(v int) {
 
 func (t *Treap) _put(o *Node, v int) *Node {
 	if o == nil {
-		return &Node{val: v, priority: rand.Int()}
+		return &Node{Val: v, priority: rand.Int()}
 	}
 	d := o.cmp(v)
 	if d >= 0 {
