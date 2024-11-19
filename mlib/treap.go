@@ -37,9 +37,11 @@ func (t *Treap) _put(o *Node, v int) *Node {
 		return &Node{val: v, priority: rand.Int()}
 	}
 	d := o.cmp(v)
-	o.ch[d] = t._put(o.ch[d], v)
-	if o.ch[d].priority > o.priority {
-		o = o.rotate(d ^ 1)
+	if d >= 0 {
+		o.ch[d] = t._put(o.ch[d], v)
+		if o.ch[d].priority > o.priority {
+			o = o.rotate(d ^ 1)
+		}
 	}
 	return o
 }
@@ -49,6 +51,9 @@ func (t *Treap) Delete(v int) {
 }
 
 func (t *Treap) _delete(o *Node, v int) *Node {
+	if o == nil {
+		return nil
+	}
 	if d := o.cmp(v); d >= 0 {
 		o.ch[d] = t._delete(o.ch[d], v)
 		return o
