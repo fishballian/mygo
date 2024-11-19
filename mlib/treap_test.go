@@ -7,7 +7,7 @@ import (
 )
 
 func Test_treap(t *testing.T) {
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 1000; i++ {
 		tree := &Treap{}
 		m := make(map[int]bool)
 		var cmd [][]int

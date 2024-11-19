@@ -3,9 +3,9 @@ package mlib
 import "math/rand"
 
 type Node struct {
-	ch       [2]*Node
+	Child    [2]*Node
 	Val      int
-	priority int
+	Priority int
 }
 
 func (o *Node) cmp(v int) int {
@@ -18,9 +18,9 @@ func (o *Node) cmp(v int) int {
 }
 
 func (o *Node) rotate(d int) *Node {
-	x := o.ch[d^1]
-	o.ch[d^1] = x.ch[d]
-	x.ch[d] = o
+	x := o.Child[d^1]
+	o.Child[d^1] = x.Child[d]
+	x.Child[d] = o
 	return x
 }
 
@@ -34,12 +34,12 @@ func (t *Treap) Put(v int) {
 
 func (t *Treap) _put(o *Node, v int) *Node {
 	if o == nil {
-		return &Node{Val: v, priority: rand.Int()}
+		return &Node{Val: v, Priority: rand.Int()}
 	}
 	d := o.cmp(v)
 	if d >= 0 {
-		o.ch[d] = t._put(o.ch[d], v)
-		if o.ch[d].priority > o.priority {
+		o.Child[d] = t._put(o.Child[d], v)
+		if o.Child[d].Priority > o.Priority {
 			o = o.rotate(d ^ 1)
 		}
 	}
@@ -55,52 +55,43 @@ func (t *Treap) _delete(o *Node, v int) *Node {
 		return nil
 	}
 	if d := o.cmp(v); d >= 0 {
-		o.ch[d] = t._delete(o.ch[d], v)
+		o.Child[d] = t._delete(o.Child[d], v)
 		return o
 	}
-	if o.ch[0] == nil {
-		return o.ch[1]
+	if o.Child[0] == nil {
+		return o.Child[1]
 	}
-	if o.ch[1] == nil {
-		return o.ch[0]
+	if o.Child[1] == nil {
+		return o.Child[0]
 	}
 	d := 0
-	if o.ch[0].priority > o.ch[1].priority {
+	if o.Child[0].Priority > o.Child[1].Priority {
 		d = 1
 	}
 	o = o.rotate(d)
-	o.ch[d] = t._delete(o.ch[d], v)
+	o.Child[d] = t._delete(o.Child[d], v)
 	return o
 }
 
 func (t *Treap) Ceil(v int) (res *Node) {
-	cur := t.root
-	for cur != nil {
-		d := cur.cmp(v)
-		if d == 0 {
-			res = cur
-			cur = cur.ch[0]
-		} else if d == 1 {
-			cur = cur.ch[1]
-		} else {
-			return cur
-		}
-	}
-	return
+	return t._find(v, 0)
 }
 
 func (t *Treap) Floor(v int) (res *Node) {
+	return t._find(v, 1)
+}
+
+func (t *Treap) _find(v, cmp int) (res *Node) {
 	cur := t.root
 	for cur != nil {
 		d := cur.cmp(v)
-		if d == 0 {
-			cur = cur.ch[0]
-		} else if d == 1 {
-			res = cur
-			cur = cur.ch[1]
-		} else {
+		if d == -1 {
 			return cur
 		}
+		if d == cmp {
+			res = cur
+		}
+		cur = cur.Child[d]
 	}
 	return
 }
