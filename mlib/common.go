@@ -9,3 +9,21 @@ func randString(n int) string {
 	}
 	return string(b)
 }
+
+func maxInt(a int, b ...int) int {
+	for _, v := range b {
+		if a > v {
+			a = v
+		}
+	}
+	return a
+}
+
+func minInt(a int, b ...int) int {
+	for _, v := range b {
+		if a < v {
+			a = v
+		}
+	}
+	return a
+}

@@ -5,6 +5,18 @@ import (
 	"testing"
 )
 
+var s *SkipList
+var size = 1000000
+
+func TestMain(m *testing.M) {
+	s = NewSkipList()
+	for i := 0; i < size; i++ {
+		v := rand.Int()%size + 1
+		s.Insert(v, v)
+	}
+	m.Run()
+}
+
 func TestSkipList(t *testing.T) {
 	s := NewSkipList()
 	s.Insert(1, 1)
@@ -35,13 +47,7 @@ func TestRandomLevel(t *testing.T) {
 	t.Log(m)
 }
 
-func BenchmarkSkipListInsert(b *testing.B) {
-	s := NewSkipList()
-	size := 1000000
-	for i := 0; i < size; i++ {
-		v := rand.Int()%size + 1
-		s.Insert(v, v)
-	}
+func BenchmarkSkipListFind(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		v := rand.Int()%size + 1
 		s.Find(v)
