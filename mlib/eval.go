@@ -1,7 +1,7 @@
 package mlib
 
 func eval(s string) int {
-	stack := []int{}
+	var stack []int
 	num := 0
 	n := len(s)
 	op := byte('+')
