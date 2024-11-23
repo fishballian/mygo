@@ -2,9 +2,9 @@ package main
 
 import "testing"
 
-func Test_findLengthOfShortestSubarray(t *testing.T) {
+func Test_foo(t *testing.T) {
 	type args struct {
-		arr []int
+		a int
 	}
 	tests := []struct {
 		name string
@@ -15,8 +15,8 @@ func Test_findLengthOfShortestSubarray(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := findLengthOfShortestSubarray(tt.args.arr); got != tt.want {
-				t.Errorf("findLengthOfShortestSubarray() = %v, want %v", got, tt.want)
+			if got := foo(tt.args.a); got != tt.want {
+				t.Errorf("foo() = %v, want %v", got, tt.want)
 			}
 		})
 	}
