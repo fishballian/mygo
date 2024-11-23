@@ -2,19 +2,18 @@ package mlib
 
 func eval(s string) int {
 	var stack []int
-	num := 0
 	n := len(s)
+	num := 0
 	op := byte('+')
 	for i := 0; i < n; i++ {
-		b := s[i]
-		if b == ' ' {
+		c := s[i]
+		if c == ' ' {
 			continue
 		}
-		if b >= '0' && b <= '9' {
-			num = num*10 + int(b-'0')
-		} else if b == '(' || b == '[' || b == '{' {
-			j := i + 1
-			count := 1
+		if c >= '0' && c <= '9' {
+			num = num*10 + int(c-'0')
+		} else if c == '(' || c == '[' || c == '{' {
+			j, count := i+1, 1
 			for count > 0 {
 				if s[j] == ')' || s[j] == ']' || s[j] == '}' {
 					count--
@@ -26,19 +25,20 @@ func eval(s string) int {
 			num = eval(s[i+1 : j-1])
 			i = j - 1
 		}
-		if !(b >= '0' && b <= '9') || i == n-1 {
-			if op == '+' {
+		if !(c >= '0' && c <= '9') || i == n-1 {
+			switch op {
+			case '+':
 				stack = append(stack, num)
-			} else if op == '-' {
+			case '-':
 				stack = append(stack, -num)
-			} else if op == '*' {
+			case '*':
 				l := len(stack)
 				stack[l-1] *= num
-			} else if op == '/' {
+			case '/':
 				l := len(stack)
 				stack[l-1] /= num
 			}
-			op = b
+			op = c
 			num = 0
 		}
 	}
