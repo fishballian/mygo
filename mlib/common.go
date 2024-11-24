@@ -1,6 +1,12 @@
 package mlib
 
-import "math/rand"
+import (
+	"bufio"
+	"fmt"
+	"io"
+	"math/rand"
+	"os"
+)
 
 func randString(n int) string {
 	b := make([]byte, n)
@@ -26,4 +32,18 @@ func minInt(a int, b ...int) int {
 		}
 	}
 	return a
+}
+
+func readLine() {
+	r := bufio.NewReaderSize(os.Stdin, 1024*1024)
+	for {
+		line, isPrefix, err := r.ReadLine()
+		if err != nil {
+			if err != io.EOF {
+				fmt.Println(err)
+			}
+			break
+		}
+		fmt.Println(string(line), isPrefix)
+	}
 }
