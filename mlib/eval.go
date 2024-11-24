@@ -3,7 +3,7 @@ package mlib
 import "strings"
 
 func eval(s string) int {
-	s = strings.Replace(s, " ", "", -1)
+	s = strings.ReplaceAll(s, " ", "")
 	n := len(s)
 	var stack []int
 	num := 0
