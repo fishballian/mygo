@@ -1,6 +1,8 @@
 package mlib
 
-import "strings"
+import (
+	"strings"
+)
 
 func eval(s string) int {
 	s = strings.ReplaceAll(s, " ", "")
@@ -17,12 +19,12 @@ func eval(s string) int {
 			for count > 0 {
 				if s[j] == ')' || s[j] == ']' || s[j] == '}' {
 					count--
-				} else if s[j] == '(' || s[j] == ']' || s[j] == '}' {
+				} else if s[j] == '(' || s[j] == '[' || s[j] == '{' {
 					count++
 				}
 				j++
 			}
-			num = eval(s[i+1 : j])
+			num = eval(s[i+1 : j-1])
 			i = j - 1
 		}
 		if !(c >= '0' && c <= '9') || i == n-1 {
