@@ -1,15 +1,15 @@
 package mlib
 
+import "strings"
+
 func eval(s string) int {
-	var stack []int
+	s = strings.Replace(s, " ", "", -1)
 	n := len(s)
+	var stack []int
 	num := 0
 	op := byte('+')
 	for i := 0; i < n; i++ {
 		c := s[i]
-		if c == ' ' {
-			continue
-		}
 		if c >= '0' && c <= '9' {
 			num = num*10 + int(c-'0')
 		} else if c == '(' || c == '[' || c == '{' {
@@ -22,7 +22,7 @@ func eval(s string) int {
 				}
 				j++
 			}
-			num = eval(s[i+1 : j-1])
+			num = eval(s[i+1 : j])
 			i = j - 1
 		}
 		if !(c >= '0' && c <= '9') || i == n-1 {
