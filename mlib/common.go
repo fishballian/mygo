@@ -54,3 +54,16 @@ func abs(x int) int {
 	}
 	return x
 }
+
+func arrayEqual(a, b []int) bool {
+	n := len(a)
+	if len(b) != n {
+		return false
+	}
+	for i := 0; i < n; i++ {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
+}
