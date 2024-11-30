@@ -25,23 +25,21 @@ func findBest(a []int, pMax int) int {
 }
 
 func findBest2(a []int, pMax int) int {
-	f := make(map[int]bool)
+	f := make([]bool, pMax+1)
 	f[0] = true
 	for _, v := range a {
-		t := f
-		f = make(map[int]bool)
-		for k := range t {
-			f[k] = true
-			if k+v <= pMax {
-				f[k+v] = true
+		for i := pMax; i >= v; i-- {
+			if f[i-v] {
+				f[i] = true
 			}
 		}
 	}
-	ans := 0
-	for k := range f {
-		ans = max(ans, k)
+	for i := pMax; i >= 0; i-- {
+		if f[i] {
+			return i
+		}
 	}
-	return ans
+	return 0
 }
 
 func format(k int, s string) string {
