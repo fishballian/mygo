@@ -24,6 +24,26 @@ func findBest(a []int, pMax int) int {
 	return ans
 }
 
+func findBest2(a []int, pMax int) int {
+	f := make(map[int]bool)
+	f[0] = true
+	for _, v := range a {
+		t := f
+		f = make(map[int]bool)
+		for k := range t {
+			f[k] = true
+			if k+v <= pMax {
+				f[k+v] = true
+			}
+		}
+	}
+	ans := 0
+	for k := range f {
+		ans = max(ans, k)
+	}
+	return ans
+}
+
 func format(k int, s string) string {
 	a := []byte{}
 	parts := strings.Split(s, "-")

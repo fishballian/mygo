@@ -67,3 +67,11 @@ func arrayEqual(a, b []int) bool {
 	}
 	return true
 }
+
+func duplicate[T any](v T, n int) []T {
+	a := make([]T, n)
+	for i := 0; i < n; i++ {
+		a[i] = v
+	}
+	return a
+}
