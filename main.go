@@ -1,9 +1,9 @@
 package main
 
-import (
-	"fmt"
-)
-
 func main() {
-	fmt.Println(1 & -1)
+	a := []int{1, 2, 4}
+	for {
+		a = append(a, 1)
+		a = a[1:]
+	}
 }
