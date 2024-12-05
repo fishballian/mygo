@@ -1,9 +1,7 @@
 package mlib
 
-type T int
-
 type Heap struct {
-	data []T
+	data []int
 }
 
 func (h *Heap) Len() int {
@@ -31,16 +29,16 @@ func (h *Heap) Pop() interface{} {
 }
 */
 
-func (h *Heap) Push(x T) {
+func (h *Heap) Push(x int) {
 	h.data = append(h.data, x)
 	h.filterUp(h.Len() - 1)
 }
 
-func (h *Heap) Top() T {
+func (h *Heap) Top() int {
 	return h.data[0]
 }
 
-func (h *Heap) Pop() T {
+func (h *Heap) Pop() int {
 	l := h.Len()
 	h.Swap(0, l-1)
 	v := h.data[l-1]
