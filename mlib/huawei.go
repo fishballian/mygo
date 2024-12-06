@@ -27,23 +27,44 @@ func findBest(a []int, pMax int) int {
 func findBest2(a []int, pMax int) int {
 	f := make([]bool, pMax+1)
 	f[0] = true
+	ans := 0
 	for _, v := range a {
 		for i := pMax; i >= v; i-- {
 			if f[i-v] {
 				f[i] = true
+				ans = max(ans, i)
 			}
 		}
 	}
-	for i := pMax; i >= 0; i-- {
-		if f[i] {
-			return i
-		}
+	return ans
+}
+
+func findBest3(a []int, pMax int) int {
+	n := len(a)
+	f := make([][]int, n)
+	for i := range f {
+		f[i] = make([]int, pMax+1)
 	}
-	return 0
+	var dfs func(i, s int) int
+	dfs = func(i, s int) int {
+		if s > pMax {
+			return 0
+		}
+		if i == n {
+			return s
+		}
+		if f[i][s] > 0 {
+			return f[i][s]
+		}
+		res := max(dfs(i+1, s), dfs(i+1, s+a[i]))
+		f[i][s] = res
+		return res
+	}
+	return dfs(0, 0)
 }
 
 func format(k int, s string) string {
-	a := []byte{}
+	var a []byte
 	parts := strings.Split(s, "-")
 	a = append(a, parts[0]...)
 	a = append(a, '-')

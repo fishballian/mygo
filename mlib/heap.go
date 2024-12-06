@@ -1,7 +1,12 @@
 package mlib
 
+type HpEntry struct {
+	k int
+	v int
+}
+
 type Heap struct {
-	data []int
+	data []HpEntry
 }
 
 func (h *Heap) Len() int {
@@ -9,7 +14,7 @@ func (h *Heap) Len() int {
 }
 
 func (h *Heap) Less(i, j int) bool {
-	return h.data[i] < h.data[j]
+	return h.data[i].v < h.data[j].v
 }
 
 func (h *Heap) Swap(i, j int) {
@@ -29,16 +34,16 @@ func (h *Heap) Pop() interface{} {
 }
 */
 
-func (h *Heap) Push(x int) {
+func (h *Heap) Push(x HpEntry) {
 	h.data = append(h.data, x)
 	h.filterUp(h.Len() - 1)
 }
 
-func (h *Heap) Top() int {
+func (h *Heap) Top() HpEntry {
 	return h.data[0]
 }
 
-func (h *Heap) Pop() int {
+func (h *Heap) Pop() HpEntry {
 	l := h.Len()
 	h.Swap(0, l-1)
 	v := h.data[l-1]
