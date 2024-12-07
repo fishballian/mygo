@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func randString(n int) string {
+func RandString(n int) string {
 	b := make([]byte, n)
 	for i := 0; i < n; i++ {
 		b[i] = byte('a' + rand.Int()%26)
@@ -68,10 +68,21 @@ func arrayEqual(a, b []int) bool {
 	return true
 }
 
-func duplicate[T any](v T, n int) []T {
+func Duplicate[T any](v T, n int) []T {
 	a := make([]T, n)
 	for i := 0; i < n; i++ {
 		a[i] = v
 	}
 	return a
+}
+
+func twoDimensionArrayShape[T int | int32 | int64 | byte | uint | bool](m, n int, defaultValue T) [][]T {
+	arr := make([][]T, m)
+	for i := range arr {
+		arr[i] = make([]T, n)
+		for j := range arr[i] {
+			arr[i][j] = defaultValue
+		}
+	}
+	return arr
 }

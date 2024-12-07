@@ -4,8 +4,8 @@ type FwTree struct {
 	a []int
 }
 
-func NewFwTree(c int) *FwTree {
-	return &FwTree{a: make([]int, c)}
+func NewFwTree(n int) *FwTree {
+	return &FwTree{a: make([]int, n+1)}
 }
 
 func (f *FwTree) Add(p, add int) {

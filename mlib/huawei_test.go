@@ -14,7 +14,7 @@ func Test_findBest(t *testing.T) {
 	}{
 		{"", args{[]int{50, 20, 20, 60}, 90}, 90},
 		{"", args{[]int{50, 40}, 30}, 0},
-		{"", args{duplicate(2, 100), 99}, 98},
+		{"", args{Duplicate(2, 100), 99}, 98},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

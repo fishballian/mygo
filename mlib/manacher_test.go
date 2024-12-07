@@ -8,7 +8,7 @@ import (
 func Test_manacher(t *testing.T) {
 	for i := 0; i < 10000; i++ {
 		n := rand.Int()%10 + 1
-		s := randString(n)
+		s := RandString(n)
 		d1, d2 := manacher(s)
 		//t.Log(s, d1, d2)
 		c1 := make([]int, len(s))
