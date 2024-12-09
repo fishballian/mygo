@@ -86,3 +86,8 @@ func twoDimensionArrayShape[T int | int32 | int64 | byte | uint | bool](m, n int
 	}
 	return arr
 }
+
+func RecoverPrint() {
+	v := recover()
+	fmt.Println("recover:", v)
+}
