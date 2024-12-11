@@ -91,3 +91,16 @@ func RecoverPrint() {
 	v := recover()
 	fmt.Println("recover:", v)
 }
+
+func Pow(a, b int) int {
+	res := 1
+	t := a
+	for b > 0 {
+		if b&1 == 1 {
+			res = res * t
+		}
+		t = t * t
+		b >>= 1
+	}
+	return res
+}
