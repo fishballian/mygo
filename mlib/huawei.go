@@ -135,3 +135,39 @@ func findMaxMine(grid []string) int {
 	}
 	return ans
 }
+
+func findShortestPath(grid [][]int) int {
+	m, n := len(grid), len(grid[0])
+	type pair struct {
+		x int
+		y int
+	}
+	dirs := [][]int{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
+	vis := make([][]bool, m)
+	for i := range vis {
+		vis[i] = make([]bool, n)
+	}
+	vis[0][0] = true
+	q := []pair{pair{}}
+	step := 0
+	for len(q) > 0 {
+		step++
+		t := q
+		q = []pair{}
+		for _, p := range t {
+			for _, d := range dirs {
+				x, y := p.x+d[0], p.y+d[1]
+				if x < 0 || x >= m || y < 0 || y >= n || grid[x][y] == 0 || vis[x][y] {
+					continue
+				}
+				if x == m-1 && y == n-1 {
+					return step
+				}
+				vis[x][y] = true
+				np := pair{x, y}
+				q = append(q, np)
+			}
+		}
+	}
+	return -1
+}

@@ -24,3 +24,23 @@ func Test_findBest(t *testing.T) {
 		})
 	}
 }
+
+func Test_findShortestPath(t *testing.T) {
+	type args struct {
+		grid [][]int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{"t1", args{grid: [][]int{{1, 0, 1, 1, 1}, {1, 1, 1, 0, 1}, {1, 1, 0, 0, 1}, {1, 0, 1, 1, 1}, {1, 1, 1, 0, 1}}}, 10},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := findShortestPath(tt.args.grid); got != tt.want {
+				t.Errorf("findShortestPath() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
